@@ -7,6 +7,8 @@
         <meta name="robots" content="noindex">
         <title>Mismatched data declaration — Haskell Error Index</title>
         <link rel="stylesheet" href="../../../css/default.css" />
+        <link rel="stylesheet" href="../../../css/highlight.css">
+        <script src="../../../js/highlight.min.js"></script>
     </head>
     <body>
         <header>
@@ -48,57 +50,57 @@ two arguments (<code>x</code> and <code>y</code>), so it does not match the kind
 signature (by removing the argument <code>y</code>) or updating the kind signature to match
 the <code>data</code> declaration (by adding an argument of kind <code>*</code>).</p>
 
-<ul>
-
-<li>
-  <code>Main1.hs</code>:
-  <p>
-    <div class="example before">
-      <p>Before:</p>
-      <pre>module Main1 where
+<table width="100%">
+  
+  <tr><td colspan="2" class="filename"><pre>Main1.hs</pre></td></tr>
+  <tr>
+    <td width="50%" class="beforeafter">Before</td>
+    <td width="50%" class="beforeafter">After</td>
+  </tr>
+  <tr>
+    <td>
+      <pre><code class="language-haskell">module Main1 where
 
 type A :: * -> *
 
 data A x y
-</pre>
-    </div>
-    <div class="example after">
-      <p>After:</p>
-      <pre>module Main1 where
+</code></pre>
+    </td>
+    <td>
+      <pre><code class="language-haskell">module Main1 where
 
 type A :: * -> *
 
 data A x = A x
-</pre>
-    </div>
-  </p>
-</li>
-
-<li>
-  <code>Main2.hs</code>:
-  <p>
-    <div class="example before">
-      <p>Before:</p>
-      <pre>module Main2 where
+</code></pre>
+    </td>
+  </tr>
+  
+  <tr><td colspan="2" class="filename"><pre>Main2.hs</pre></td></tr>
+  <tr>
+    <td width="50%" class="beforeafter">Before</td>
+    <td width="50%" class="beforeafter">After</td>
+  </tr>
+  <tr>
+    <td>
+      <pre><code class="language-haskell">module Main2 where
 
 type A :: * -> *
 
 data A x y
-</pre>
-    </div>
-    <div class="example after">
-      <p>After:</p>
-      <pre>module Main2 where
+</code></pre>
+    </td>
+    <td>
+      <pre><code class="language-haskell">module Main2 where
 
 type A :: * -> * -> *
 
 data A x y = A x y
-</pre>
-    </div>
-  </p>
-</li>
-
-</ul>
+</code></pre>
+    </td>
+  </tr>
+  
+</table>
 
         </main>
 
@@ -111,5 +113,9 @@ data A x y = A x y
             <a href="http://jaspervdj.be/hakyll">Hakyll</a>
           </p>
         </footer>
+
+        <script>document.querySelectorAll('code.language-haskell').forEach(el => {
+          hljs.highlightElement(el);
+        });</script>
     </body>
 </html>

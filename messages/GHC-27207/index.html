@@ -7,6 +7,8 @@
         <meta name="robots" content="noindex">
         <title>Missing space after tilde `~` [GHC-27207] — Haskell Error Index</title>
         <link rel="stylesheet" href="../../css/default.css" />
+        <link rel="stylesheet" href="../../css/highlight.css">
+        <script src="../../js/highlight.min.js"></script>
     </head>
     <body>
         <header>
@@ -33,10 +35,14 @@
             
 
 
-<p>The <code>~</code> character can be used for multiple purposes:
-- For type equality in a function signature <code>a ~ b</code>
-- As a binary operator <code>(~) :: a -&gt; b -&gt; c</code>
-- As a <em>lazy pattern</em> when defining fields or variable bindings <code>let ~l = ...</code></p>
+<p>The <code>~</code> character can be used for multiple purposes:</p>
+<ul>
+<li>For type equality in a function signature: <code>a ~ b</code></li>
+<li>As a binary operator: <code>(~) :: a -&gt; b -&gt; c</code></li>
+<li>For defining non-strict fields in the presence of the <code>StrictData</code> extension: <code>data Foo = MkFoo Int ~Char</code></li>
+<li>For making <em>irrefutable</em> pattern matches lazy again in the presence of the <code>Strict</code> extension: <code>f ~x = 5</code></li>
+<li>As a <em>lazy pattern</em> to turn refutable patterns into irrefutable patterns: <code>case undefined of ~(a,b) -&gt; length [a,b]</code></li>
+</ul>
 <p>If no space is placed between <code>~</code> and the expression that follows it, this is interpreted as the last bullet; in expression contexts, the lazy pattern is not allowed. The most likely case is that you wish to use <code>~</code> as a binary operator, in which case a space is needed following it.</p>
 
 <h2>Examples</h2>
@@ -57,5 +63,9 @@
             <a href="http://jaspervdj.be/hakyll">Hakyll</a>
           </p>
         </footer>
+
+        <script>document.querySelectorAll('code.language-haskell').forEach(el => {
+          hljs.highlightElement(el);
+        });</script>
     </body>
 </html>

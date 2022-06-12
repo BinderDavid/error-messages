@@ -7,6 +7,8 @@
         <meta name="robots" content="noindex">
         <title>An enumeration where the lower bound is greater than the upper bound — Haskell Error Index</title>
         <link rel="stylesheet" href="../../../css/default.css" />
+        <link rel="stylesheet" href="../../../css/highlight.css">
+        <script src="../../../js/highlight.min.js"></script>
     </head>
     <body>
         <header>
@@ -41,35 +43,35 @@
 <h2 id="explanation">Explanation</h2>
 <p><code>5</code> is greater than <code>1</code>, so the resulting list would be empty. This probably indicates a bug, because the most straightforward way to write the empty list is <code>[]</code>. One solution to this is to provide the second step in the enumeration so that the code will count down rather than up.</p>
 
-<ul>
-
-<li>
-  <code>Main.hs</code>:
-  <p>
-    <div class="example before">
-      <p>Before:</p>
-      <pre>module Main where
+<table width="100%">
+  
+  <tr><td colspan="2" class="filename"><pre>Main.hs</pre></td></tr>
+  <tr>
+    <td width="50%" class="beforeafter">Before</td>
+    <td width="50%" class="beforeafter">After</td>
+  </tr>
+  <tr>
+    <td>
+      <pre><code class="language-haskell">module Main where
 
 main :: IO ()
 main = do
   let enum = [5 .. 1]
   print enum
-</pre>
-    </div>
-    <div class="example after">
-      <p>After:</p>
-      <pre>module Main where
+</code></pre>
+    </td>
+    <td>
+      <pre><code class="language-haskell">module Main where
 
 main :: IO ()
 main = do
   let enum = [5, 4 .. 1]
   print enum
-</pre>
-    </div>
-  </p>
-</li>
-
-</ul>
+</code></pre>
+    </td>
+  </tr>
+  
+</table>
 
         </main>
 
@@ -82,5 +84,9 @@ main = do
             <a href="http://jaspervdj.be/hakyll">Hakyll</a>
           </p>
         </footer>
+
+        <script>document.querySelectorAll('code.language-haskell').forEach(el => {
+          hljs.highlightElement(el);
+        });</script>
     </body>
 </html>

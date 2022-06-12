@@ -7,6 +7,8 @@
         <meta name="robots" content="noindex">
         <title>All fields are strict if the StrictData language extension is enabled — Haskell Error Index</title>
         <link rel="stylesheet" href="../../../css/default.css" />
+        <link rel="stylesheet" href="../../../css/highlight.css">
+        <script src="../../../js/highlight.min.js"></script>
     </head>
     <body>
         <header>
@@ -50,14 +52,16 @@ StrictExtension.hs:12:12: error: [GHC-95909]
 12 | aAlsoBad = A { b = 5 }
    |            ^^^^^^^^^^^</code></pre>
 
-<ul>
-
-<li>
-  <code>StrictExtension.hs</code>:
-  <p>
-    <div class="example before">
-      <p>Before:</p>
-      <pre>{-# LANGUAGE Strict #-}
+<table width="100%">
+  
+  <tr><td colspan="2" class="filename"><pre>StrictExtension.hs</pre></td></tr>
+  <tr>
+    <td width="50%" class="beforeafter">Before</td>
+    <td width="50%" class="beforeafter">After</td>
+  </tr>
+  <tr>
+    <td>
+      <pre><code class="language-haskell">{-# LANGUAGE Strict #-}
 
 module StrictExtension where
 
@@ -71,11 +75,10 @@ aBad = A { a = True }
 
 aAlsoBad :: A
 aAlsoBad = A { b = 5 }
-</pre>
-    </div>
-    <div class="example after">
-      <p>After:</p>
-      <pre>{-# LANGUAGE Strict #-}
+</code></pre>
+    </td>
+    <td>
+      <pre><code class="language-haskell">{-# LANGUAGE Strict #-}
 
 module StrictExtension where
 
@@ -89,12 +92,11 @@ aFixed = A { a = True, b = 5 }
 
 aAlsoFixed :: A
 aAlsoFixed = A { a = True, b = 5 }
-</pre>
-    </div>
-  </p>
-</li>
-
-</ul>
+</code></pre>
+    </td>
+  </tr>
+  
+</table>
 
         </main>
 
@@ -107,5 +109,9 @@ aAlsoFixed = A { a = True, b = 5 }
             <a href="http://jaspervdj.be/hakyll">Hakyll</a>
           </p>
         </footer>
+
+        <script>document.querySelectorAll('code.language-haskell').forEach(el => {
+          hljs.highlightElement(el);
+        });</script>
     </body>
 </html>

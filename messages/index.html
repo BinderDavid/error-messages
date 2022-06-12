@@ -7,6 +7,8 @@
         <meta name="robots" content="noindex">
         <title>Messages — Haskell Error Index</title>
         <link rel="stylesheet" href="../css/default.css" />
+        <link rel="stylesheet" href="../css/highlight.css">
+        <script src="../js/highlight.min.js"></script>
     </head>
     <body>
         <header>
@@ -43,28 +45,28 @@
         <tr>
             <td>GHC-10190</td>
             <td><a href="../messages/GHC-10190/index.html">Empty enumeration</a></td>
-            <td>An enumeration would be empty</td>
+            <td>An enumeration would be empty.</td>
             <td>9.6.1</td>
         </tr>
     
         <tr>
             <td>GHC-11913</td>
             <td><a href="../messages/GHC-11913/index.html">Illegal deriving item</a></td>
-            <td>Something other than a type class appears in a deriving statement</td>
+            <td>Something other than a type class appears in a deriving statement.</td>
             <td>9.6.1</td>
         </tr>
     
         <tr>
             <td>GHC-20125</td>
-            <td><a href="../messages/GHC-20125/index.html">Missing Fields</a></td>
-            <td>Initialization of record with missing fields</td>
+            <td><a href="../messages/GHC-20125/index.html">Missing field(s)</a></td>
+            <td>Initialization of record with missing field(s).</td>
             <td>9.6.1</td>
         </tr>
     
         <tr>
             <td>GHC-27207</td>
             <td><a href="../messages/GHC-27207/index.html">Missing space after tilde `~`</a></td>
-            <td>Lazy pattern in expression context</td>
+            <td>Lazy pattern in expression context.</td>
             <td>9.6.1</td>
         </tr>
     
@@ -76,44 +78,93 @@
         </tr>
     
         <tr>
+            <td>GHC-39999</td>
+            <td><a href="../messages/GHC-39999/index.html">No instance arising</a></td>
+            <td>An expression requires a type class instance which is not provided by the context.</td>
+            <td>9.6.1</td>
+        </tr>
+    
+        <tr>
             <td>GHC-46956</td>
             <td><a href="../messages/GHC-46956/index.html">Kind variable would escape its scope</a></td>
-            <td>A local kind variable was used to classify a type from a scope in which the kind variable is not available</td>
+            <td>A local kind variable was used to classify a type from a scope in which the kind variable is not available.</td>
+            <td>9.6.1</td>
+        </tr>
+    
+        <tr>
+            <td>GHC-47854</td>
+            <td><a href="../messages/GHC-47854/index.html">Duplicate Exports</a></td>
+            <td>An identifier apperas twice in an export list.</td>
             <td>9.6.1</td>
         </tr>
     
         <tr>
             <td>GHC-62161</td>
-            <td><a href="../messages/GHC-62161/index.html">Incomplete Patterns</a></td>
-            <td>Pattern match(es) are non-exhaustive</td>
+            <td><a href="../messages/GHC-62161/index.html">Incomplete patterns</a></td>
+            <td>Pattern match(es) are non-exhaustive.</td>
+            <td>9.6.1</td>
+        </tr>
+    
+        <tr>
+            <td>GHC-69925</td>
+            <td><a href="../messages/GHC-69925/index.html">Illegal unboxed string literal in pattern</a></td>
+            <td>Illegal unboxed string literal in pattern</td>
+            <td>9.6.1</td>
+        </tr>
+    
+        <tr>
+            <td>GHC-75356</td>
+            <td><a href="../messages/GHC-75356/index.html">Export item suggests constructors/methods</a></td>
+            <td>An export item suggests that (in-scope) constructors or class methods exist when they do not.</td>
+            <td>9.6.1</td>
+        </tr>
+    
+        <tr>
+            <td>GHC-76037</td>
+            <td><a href="../messages/GHC-76037/index.html">Not in scope</a></td>
+            <td>An identifier is not in scope.</td>
             <td>9.6.1</td>
         </tr>
     
         <tr>
             <td>GHC-84077</td>
-            <td><a href="../messages/GHC-84077/index.html">Type Application Without Space</a></td>
-            <td>Parsing error of type application</td>
-            <td>9.4.1</td>
+            <td><a href="../messages/GHC-84077/index.html">Type application without space</a></td>
+            <td>Parsing error of type application.</td>
+            <td>9.6.1</td>
         </tr>
     
         <tr>
             <td>GHC-88464</td>
             <td><a href="../messages/GHC-88464/index.html">Variable not in scope</a></td>
-            <td>An unknown variable name was referenced</td>
+            <td>An unknown variable name was referenced.</td>
+            <td>9.6.1</td>
+        </tr>
+    
+        <tr>
+            <td>GHC-90584</td>
+            <td><a href="../messages/GHC-90584/index.html">Deriving `Typeable` has no effect</a></td>
+            <td>The type class `Typeable` does not need to be derived.</td>
             <td>9.6.1</td>
         </tr>
     
         <tr>
             <td>GHC-95644</td>
-            <td><a href="../messages/GHC-95644/index.html">Missing space after exclamation `!`</a></td>
-            <td>Bang pattern in expression context</td>
+            <td><a href="../messages/GHC-95644/index.html">Missing space after exclamation mark `!`</a></td>
+            <td>Bang pattern in expression context.</td>
             <td>9.6.1</td>
         </tr>
     
         <tr>
             <td>GHC-95909</td>
             <td><a href="../messages/GHC-95909/index.html">Missing strict fields</a></td>
-            <td>Constructor was not instantiated with required strict field(s)</td>
+            <td>Constructor was not instantiated with required strict field(s).</td>
+            <td>9.6.1</td>
+        </tr>
+    
+        <tr>
+            <td>GHC-99623</td>
+            <td><a href="../messages/GHC-99623/index.html">Import item suggests constructors/methods</a></td>
+            <td>An import item suggests that (in-scope) constructors or class methods exist when they do not.</td>
             <td>9.6.1</td>
         </tr>
     
@@ -131,5 +182,9 @@
             <a href="http://jaspervdj.be/hakyll">Hakyll</a>
           </p>
         </footer>
+
+        <script>document.querySelectorAll('code.language-haskell').forEach(el => {
+          hljs.highlightElement(el);
+        });</script>
     </body>
 </html>

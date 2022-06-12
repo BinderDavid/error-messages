@@ -7,6 +7,8 @@
         <meta name="robots" content="noindex">
         <title>An escaping kind variable — Haskell Error Index</title>
         <link rel="stylesheet" href="../../../css/default.css" />
+        <link rel="stylesheet" href="../../../css/highlight.css">
+        <script src="../../../js/highlight.min.js"></script>
     </head>
     <body>
         <header>
@@ -49,14 +51,16 @@
 <p>In this context, the <code>SameKind</code> type requires that both of its arguments are types, and that those types have the same kind. In <code>foo</code>’s type signature, the type <code>b</code> does not have an explicitly-provided kind, which means that GHC creates a fresh kind metavariable for it. The type <code>a</code> does have an explicit kind, which is the variable <code>k</code>. Because <code>SameKind</code> is applied to both <code>a</code> and <code>b</code>, it causes <code>b</code>’s kind metavariable to be unified with <code>k</code>, but <code>k</code> comes from an inner scope and is thus not available for unification.</p>
 <p>The error can be fixed by extending <code>k</code>’s scope to encompass <code>b</code>’s binding site.</p>
 
-<ul>
-
-<li>
-  <code>Main.hs</code>:
-  <p>
-    <div class="example before">
-      <p>Before:</p>
-      <pre>{-# LANGUAGE PolyKinds, RankNTypes, ImpredicativeTypes #-}
+<table width="100%">
+  
+  <tr><td colspan="2" class="filename"><pre>Main.hs</pre></td></tr>
+  <tr>
+    <td width="50%" class="beforeafter">Before</td>
+    <td width="50%" class="beforeafter">After</td>
+  </tr>
+  <tr>
+    <td>
+      <pre><code class="language-haskell">{-# LANGUAGE PolyKinds, RankNTypes, ImpredicativeTypes #-}
 
 module Main where
 
@@ -69,11 +73,10 @@ foo = undefined
 
 main :: IO ()
 main = pure ()
-</pre>
-    </div>
-    <div class="example after">
-      <p>After:</p>
-      <pre>{-# LANGUAGE PolyKinds, RankNTypes, ImpredicativeTypes #-}
+</code></pre>
+    </td>
+    <td>
+      <pre><code class="language-haskell">{-# LANGUAGE PolyKinds, RankNTypes, ImpredicativeTypes #-}
 
 module Main where
 
@@ -86,12 +89,11 @@ foo = undefined
 
 main :: IO ()
 main = pure ()
-</pre>
-    </div>
-  </p>
-</li>
-
-</ul>
+</code></pre>
+    </td>
+  </tr>
+  
+</table>
 
         </main>
 
@@ -104,5 +106,9 @@ main = pure ()
             <a href="http://jaspervdj.be/hakyll">Hakyll</a>
           </p>
         </footer>
+
+        <script>document.querySelectorAll('code.language-haskell').forEach(el => {
+          hljs.highlightElement(el);
+        });</script>
     </body>
 </html>

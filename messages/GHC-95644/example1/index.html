@@ -7,6 +7,8 @@
         <meta name="robots" content="noindex">
         <title>Missing space after exclamation `!` — Haskell Error Index</title>
         <link rel="stylesheet" href="../../../css/default.css" />
+        <link rel="stylesheet" href="../../../css/highlight.css">
+        <script src="../../../js/highlight.min.js"></script>
     </head>
     <body>
         <header>
@@ -27,7 +29,7 @@
               
                 <a href="../../../messages/index.html">Messages</a>&nbsp;»
               
-                <a href="../../../messages/GHC-95644/index.html">Missing space after exclamation `!` [GHC-95644]</a>&nbsp;»
+                <a href="../../../messages/GHC-95644/index.html">Missing space after exclamation mark `!` [GHC-95644]</a>&nbsp;»
               
               Missing space after exclamation `!`
             </nav>
@@ -41,14 +43,16 @@
 9 | f x = x !1
   |</code></pre>
 
-<ul>
-
-<li>
-  <code>MissingSpaceBangPattern.hs</code>:
-  <p>
-    <div class="example before">
-      <p>Before:</p>
-      <pre>module MissingSpaceBangPattern where
+<table width="100%">
+  
+  <tr><td colspan="2" class="filename"><pre>MissingSpaceBangPattern.hs</pre></td></tr>
+  <tr>
+    <td width="50%" class="beforeafter">Before</td>
+    <td width="50%" class="beforeafter">After</td>
+  </tr>
+  <tr>
+    <td>
+      <pre><code class="language-haskell">module MissingSpaceBangPattern where
 
 (!) :: Int -> Int -> Bool
 (!) a b = a == b
@@ -57,11 +61,10 @@ infixl 5 !
 
 f :: Int -> Bool
 f x = x !1
-</pre>
-    </div>
-    <div class="example after">
-      <p>After:</p>
-      <pre>module MissingSpaceBangPattern where
+</code></pre>
+    </td>
+    <td>
+      <pre><code class="language-haskell">module MissingSpaceBangPattern where
 
 (!) :: Int -> Int -> Bool
 (!) a b = a == b
@@ -70,12 +73,11 @@ infixl 5 !
 
 f :: Int -> Bool
 f x = x ! 1
-</pre>
-    </div>
-  </p>
-</li>
-
-</ul>
+</code></pre>
+    </td>
+  </tr>
+  
+</table>
 
         </main>
 
@@ -88,5 +90,9 @@ f x = x ! 1
             <a href="http://jaspervdj.be/hakyll">Hakyll</a>
           </p>
         </footer>
+
+        <script>document.querySelectorAll('code.language-haskell').forEach(el => {
+          hljs.highlightElement(el);
+        });</script>
     </body>
 </html>

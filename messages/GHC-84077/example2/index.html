@@ -7,6 +7,8 @@
         <meta name="robots" content="noindex">
         <title>Missing space in type application — Haskell Error Index</title>
         <link rel="stylesheet" href="../../../css/default.css" />
+        <link rel="stylesheet" href="../../../css/highlight.css">
+        <script src="../../../js/highlight.min.js"></script>
     </head>
     <body>
         <header>
@@ -27,7 +29,7 @@
               
                 <a href="../../../messages/index.html">Messages</a>&nbsp;»
               
-                <a href="../../../messages/GHC-84077/index.html">Type Application Without Space [GHC-84077]</a>&nbsp;»
+                <a href="../../../messages/GHC-84077/index.html">Type application without space [GHC-84077]</a>&nbsp;»
               
               Missing space in type application
             </nav>
@@ -42,35 +44,35 @@
 <h2 id="explanation">Explanation</h2>
 <p>A space is missing before the type application. The expression cannot be correctly parsed.</p>
 
-<ul>
-
-<li>
-  <code>Example.hs</code>:
-  <p>
-    <div class="example before">
-      <p>Before:</p>
-      <pre>{-# LANGUAGE TypeApplications #-}
+<table width="100%">
+  
+  <tr><td colspan="2" class="filename"><pre>Example.hs</pre></td></tr>
+  <tr>
+    <td width="50%" class="beforeafter">Before</td>
+    <td width="50%" class="beforeafter">After</td>
+  </tr>
+  <tr>
+    <td>
+      <pre><code class="language-haskell">{-# LANGUAGE TypeApplications #-}
 module Example where
 
 g :: (Num a) => a -> a
 g x = x * 2
 
-f = g@Int</pre>
-    </div>
-    <div class="example after">
-      <p>After:</p>
-      <pre>{-# LANGUAGE TypeApplications #-}
+f = g@Int</code></pre>
+    </td>
+    <td>
+      <pre><code class="language-haskell">{-# LANGUAGE TypeApplications #-}
 module Example where
 
 g :: (Num a) => a -> a
 g x = x * 2
 
-f = g @Int</pre>
-    </div>
-  </p>
-</li>
-
-</ul>
+f = g @Int</code></pre>
+    </td>
+  </tr>
+  
+</table>
 
         </main>
 
@@ -83,5 +85,9 @@ f = g @Int</pre>
             <a href="http://jaspervdj.be/hakyll">Hakyll</a>
           </p>
         </footer>
+
+        <script>document.querySelectorAll('code.language-haskell').forEach(el => {
+          hljs.highlightElement(el);
+        });</script>
     </body>
 </html>

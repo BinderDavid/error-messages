@@ -7,6 +7,8 @@
         <meta name="robots" content="noindex">
         <title>Contact — Haskell Error Index</title>
         <link rel="stylesheet" href="./css/default.css" />
+        <link rel="stylesheet" href="./css/highlight.css">
+        <script src="./js/highlight.min.js"></script>
     </head>
     <body>
         <header>
@@ -42,5 +44,9 @@ have feedback of if you’d like to get involved!</p>
             <a href="http://jaspervdj.be/hakyll">Hakyll</a>
           </p>
         </footer>
+
+        <script>document.querySelectorAll('code.language-haskell').forEach(el => {
+          hljs.highlightElement(el);
+        });</script>
     </body>
 </html>

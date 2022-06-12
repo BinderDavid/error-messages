@@ -5,8 +5,10 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex">
-        <title>Missing space after exclamation `!` [GHC-95644] — Haskell Error Index</title>
+        <title>Missing space after exclamation mark `!` [GHC-95644] — Haskell Error Index</title>
         <link rel="stylesheet" href="../../css/default.css" />
+        <link rel="stylesheet" href="../../css/highlight.css">
+        <script src="../../js/highlight.min.js"></script>
     </head>
     <body>
         <header>
@@ -27,15 +29,19 @@
               
                 <a href="../../messages/index.html">Messages</a>&nbsp;»
               
-              Missing space after exclamation `!` [GHC-95644]
+              Missing space after exclamation mark `!` [GHC-95644]
             </nav>
-            <h1>Missing space after exclamation `!` [GHC-95644]</h1>
+            <h1>Missing space after exclamation mark `!` [GHC-95644]</h1>
             
 
 
-<p>The <code>!</code> character can be used for multiple purposes:
-- As a binary operator <code>(!) :: a -&gt; b -&gt; c</code>
-- As a <em>bang pattern</em> when defining fields or variable bindings <code>let !l = ...</code></p>
+<p>The <code>!</code> character can be used for multiple purposes:</p>
+<ul>
+<li>As a binary operator: <code>(!) :: a -&gt; b -&gt; c</code></li>
+<li>As a <em>strictness flag</em> when defining fields: <code>data Foo = MkFoo !Int Char</code></li>
+<li>To write strict let bindings: <code>let !b = undefined in (True, b)</code></li>
+<li>As a <em>bang pattern</em> to make patterns stricter: <code>let (!a,b) = (undefined, True) in b || a</code></li>
+</ul>
 <p>If no space is placed between <code>!</code> and the expression that follows it, this is interpreted as the last bullet; in expression contexts, the bang pattern is not allowed. The most likely case is that you wish to use <code>!</code> as a binary operator, in which case a space is needed following it.</p>
 
 <h2>Examples</h2>
@@ -56,5 +62,9 @@
             <a href="http://jaspervdj.be/hakyll">Hakyll</a>
           </p>
         </footer>
+
+        <script>document.querySelectorAll('code.language-haskell').forEach(el => {
+          hljs.highlightElement(el);
+        });</script>
     </body>
 </html>
