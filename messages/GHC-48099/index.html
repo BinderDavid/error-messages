@@ -5,7 +5,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex">
-        <title>Duplicate Exports [GHC-47854] — Haskell Error Index</title>
+        <title>Top-level strict or unlifted binds not allowed [GHC-48099] — Haskell Error Index</title>
         <link rel="stylesheet" href="../../css/default.css" />
         <link rel="stylesheet" href="../../css/highlight.css">
         <script src="../../js/highlight.min.js"></script>
@@ -29,55 +29,46 @@
               
                 <a href="../../messages/index.html">Messages</a>&nbsp;»
               
-              Duplicate Exports [GHC-47854]
+              Top-level strict or unlifted binds not allowed [GHC-48099]
             </nav>
-            <h1>Duplicate Exports [GHC-47854]</h1>
+            <h1>Top-level strict or unlifted binds not allowed [GHC-48099]</h1>
             
-<p>
-  <i>Flag: <code>-Wduplicate-exports</code></i><br />
-  
-  <i>Enabled by default</i>
-  
-</p>
 
 
-
-<p>An export list of a module mentions the same identifier twice.</p>
+<p>In Haskell, top-level bindings must be represented by <a href="https://wiki.haskell.org/Thunk">thunks</a> because the evaluation time of things that can fail is hard to understand when they’re part of a module. This rules out strict bindings as well as unlifted bindings.</p>
 
 <h2>Examples</h2>
 
 <details>
-  <summary>Duplicate export</summary>
+  <summary>Top-level strict bindings</summary>
   <div class="example-container">
-    <p>The module <code>Example</code> mentions the symbol <code>answer</code> twice in its export list.</p>
-<p>To avoid the warning, simply remove the duplicated mention.</p>
-<h2 id="error-message">Error Message</h2>
-<pre><code>Main.hs:3:25: warning: [-Wduplicate-exports] [GHC-47854]
-    ‘answer’ is exported by ‘answer’ and ‘answer’
+    <h2 id="message">Message</h2>
+<pre><code>Strict.hs:3:1: error: [GHC-48099]
+    Top-level strict bindings aren't allowed: !x = 5
   |
-3 | module Example (answer, answer) where
-  |                         ^^^^^^</code></pre>
+3 | !x = 5
+  | ^^^^^^</code></pre>
+<h2 id="explanation">Explanation</h2>
+<p>The top-level binding of <code>x</code> is a strict pattern, which is not allowed. This can be fixed by not having a strict pattern for a top-level binding.</p>
 
 <table width="100%">
   
-  <tr><td colspan="2" class="filename"><pre>Main.hs</pre></td></tr>
+  <tr><td colspan="2" class="filename"><pre>Strict.hs</pre></td></tr>
   <tr>
     <td width="50%" class="beforeafter">Before</td>
     <td width="50%" class="beforeafter">After</td>
   </tr>
   <tr>
     <td>
-      <pre><code class="language-haskell">module Example (answer, answer) where
+      <pre><code class="language-haskell">module Strict where
 
-answer :: Int
-answer = 42
+!x = 5
 </code></pre>
     </td>
     <td>
-      <pre><code class="language-haskell">module Example (answer) where
+      <pre><code class="language-haskell">module Strict where
 
-answer :: Int
-answer = 42
+x = 5
 </code></pre>
     </td>
   </tr>
@@ -88,36 +79,37 @@ answer = 42
 </details>
 
 <details>
-  <summary>Duplicate field export</summary>
+  <summary>Unlifted top-level binding</summary>
   <div class="example-container">
-    <p>The module <code>Example</code> exports the symbol <code>answer</code> twice.
-In addition to the explicit entry in the export list it’s also exported by <code>Example(..)</code>.</p>
-<p>To avoid the warning, remove one of the duplicated mention.</p>
-<h2 id="error-message">Error Message</h2>
-<pre><code>Main.hs:1:25: warning: [-Wduplicate-exports] [GHC-47854]
-    ‘answer’ is exported by ‘Example(..)’ and ‘answer’
+    <h2 id="message">Message</h2>
+<pre><code>Unlifted.hs:4:1: error: [GHC-48099]
+    Top-level bindings for unlifted types aren't allowed: x = 4#
   |
-1 | module Example (answer, Example(..)) where
-  |                        ^^^^^^</code></pre>
+4 | x = 4#
+  | ^^^^^^</code></pre>
+<h2 id="explanation">Explanation</h2>
+<p>Top-level bindings are not allowed to be unlifted types, because they always need to be a <a href="https://wiki.haskell.org/Thunk">thunk</a>. To fix the issue, use a lifted type.</p>
 
 <table width="100%">
   
-  <tr><td colspan="2" class="filename"><pre>Main.hs</pre></td></tr>
+  <tr><td colspan="2" class="filename"><pre>Unlifted.hs</pre></td></tr>
   <tr>
     <td width="50%" class="beforeafter">Before</td>
     <td width="50%" class="beforeafter">After</td>
   </tr>
   <tr>
     <td>
-      <pre><code class="language-haskell">module Example (answer, Example(..)) where
+      <pre><code class="language-haskell">{-# LANGUAGE MagicHash #-}
+module Unlifted where
 
-data Example = Example { answer :: Int }
+x = 4#
 </code></pre>
     </td>
     <td>
-      <pre><code class="language-haskell">module Example (Example) where
+      <pre><code class="language-haskell">
+module Unlifted where
 
-data Example = Example { answer :: Int }
+x = 4
 </code></pre>
     </td>
   </tr>

@@ -5,7 +5,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex">
-        <title>No explicit import list [GHC-77037] — Haskell Error Index</title>
+        <title>Precedence out of range [GHC-25078] — Haskell Error Index</title>
         <link rel="stylesheet" href="../../css/default.css" />
         <link rel="stylesheet" href="../../css/highlight.css">
         <script src="../../js/highlight.min.js"></script>
@@ -29,55 +29,53 @@
               
                 <a href="../../messages/index.html">Messages</a>&nbsp;»
               
-              No explicit import list [GHC-77037]
+              Precedence out of range [GHC-25078]
             </nav>
-            <h1>No explicit import list [GHC-77037]</h1>
+            <h1>Precedence out of range [GHC-25078]</h1>
             
-<p>
-  <i>Flag: <code>-Wmissing-import-lists</code></i><br />
-  
-  <i>Enabled by:</i> <code></code>
-  
-</p>
 
 
-
-<p>If an import statement brings identifiers into scope, but those identifiers are not explicitly listed, then they might become ambiguous in the future.</p>
+<p>When defining custom infix operators and assigning them an operator precedence with <code>infixl</code> or <code>infixr</code>, the precedence must be <code>1 &lt;= x &lt;= 9</code>.</p>
 
 <h2>Examples</h2>
 
 <details>
-  <summary>Importing Data.Maybe (Maybe(..))</summary>
+  <summary>Invalid operator precedence</summary>
   <div class="example-container">
-    <p>In the example, the import statement brings all the constructors of the <code>Maybe</code> data type into scope, without mentioning them explicitly.
-The warning can be fixed by explicitly importing the constructors of the <code>Maybe</code> data type.</p>
-<h2 id="warning-message">Warning Message</h2>
-<pre><code>example1/before/Example.hs:4:1: warning: [-Wmissing-import-lists] [GHC-77037]
-    The import item ‘Maybe(..)’ does not have an explicit import list
+    <p>An operator’s precedence must be <code>1 &lt;= x &lt;= 9</code>.</p>
+<h2 id="error-message">Error Message</h2>
+<pre><code>InvalidPrecedence.hs:6:8: error: [ghc-25078]
+    Precedence out of range: 1000
   |
-4 | import Data.Maybe (Maybe(..))
-  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</code></pre>
+6 | infixl 1000 ⊚‿⊚
+  |        ^^^^</code></pre>
 
 <table width="100%">
   
-  <tr><td colspan="2" class="filename"><pre>Example.hs</pre></td></tr>
+  <tr><td colspan="2" class="filename"><pre>InvalidPrecedence.hs</pre></td></tr>
   <tr>
     <td width="50%" class="beforeafter">Before</td>
     <td width="50%" class="beforeafter">After</td>
   </tr>
   <tr>
     <td>
-      <pre><code class="language-haskell">{-# OPTIONS_GHC -Wmissing-import-lists #-}
-module Example where
+      <pre><code class="language-haskell">module InvalidPrecedence where
 
-import Data.Maybe (Maybe(..))
+(⊚‿⊚) :: Int -> Int -> Int
+(⊚‿⊚) = (+)
+
+infixl 1000 ⊚‿⊚
 </code></pre>
     </td>
     <td>
-      <pre><code class="language-haskell">{-# OPTIONS_GHC -Wmissing-import-lists #-}
-module Example where
+      <pre><code class="language-haskell">module InvalidPrecedence where
 
-import Data.Maybe (Maybe(Just, Nothing))
+module InvalidPrecedence where
+
+(⊚‿⊚) :: Int -> Int -> Int
+(⊚‿⊚) = (+)
+
+infixl 9 ⊚‿⊚
 </code></pre>
     </td>
   </tr>

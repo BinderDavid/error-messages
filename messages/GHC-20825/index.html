@@ -5,7 +5,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex">
-        <title>No explicit import list [GHC-77037] — Haskell Error Index</title>
+        <title>Empty record update [GHC-20825] — Haskell Error Index</title>
         <link rel="stylesheet" href="../../css/default.css" />
         <link rel="stylesheet" href="../../css/highlight.css">
         <script src="../../js/highlight.min.js"></script>
@@ -29,55 +29,54 @@
               
                 <a href="../../messages/index.html">Messages</a>&nbsp;»
               
-              No explicit import list [GHC-77037]
+              Empty record update [GHC-20825]
             </nav>
-            <h1>No explicit import list [GHC-77037]</h1>
+            <h1>Empty record update [GHC-20825]</h1>
             
-<p>
-  <i>Flag: <code>-Wmissing-import-lists</code></i><br />
-  
-  <i>Enabled by:</i> <code></code>
-  
-</p>
 
 
-
-<p>If an import statement brings identifiers into scope, but those identifiers are not explicitly listed, then they might become ambiguous in the future.</p>
+<p>Record update syntax, in which only certain fields are replaced in a record, requires that at least one field update be specified.</p>
 
 <h2>Examples</h2>
 
 <details>
-  <summary>Importing Data.Maybe (Maybe(..))</summary>
+  <summary>No fields updated</summary>
   <div class="example-container">
-    <p>In the example, the import statement brings all the constructors of the <code>Maybe</code> data type into scope, without mentioning them explicitly.
-The warning can be fixed by explicitly importing the constructors of the <code>Maybe</code> data type.</p>
-<h2 id="warning-message">Warning Message</h2>
-<pre><code>example1/before/Example.hs:4:1: warning: [-Wmissing-import-lists] [GHC-77037]
-    The import item ‘Maybe(..)’ does not have an explicit import list
+    <h2 id="message">Message</h2>
+<pre><code>NoFields.hs:7:6: error: [GHC-20825]
+    Empty record update
   |
-4 | import Data.Maybe (Maybe(..))
-  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</code></pre>
+7 | r2 = r1 {}
+  |      ^^^^^</code></pre>
+<h2 id="explanation">Explanation</h2>
+<p>No fields were provided in the update to <code>r1</code>. Provide a field to fix the error.</p>
 
 <table width="100%">
   
-  <tr><td colspan="2" class="filename"><pre>Example.hs</pre></td></tr>
+  <tr><td colspan="2" class="filename"><pre>NoFields.hs</pre></td></tr>
   <tr>
     <td width="50%" class="beforeafter">Before</td>
     <td width="50%" class="beforeafter">After</td>
   </tr>
   <tr>
     <td>
-      <pre><code class="language-haskell">{-# OPTIONS_GHC -Wmissing-import-lists #-}
-module Example where
+      <pre><code class="language-haskell">module NoFields where
 
-import Data.Maybe (Maybe(..))
+data Record = Record {a :: Int}
+
+r1 = Record {a = 5}
+
+r2 = r1 {}
 </code></pre>
     </td>
     <td>
-      <pre><code class="language-haskell">{-# OPTIONS_GHC -Wmissing-import-lists #-}
-module Example where
+      <pre><code class="language-haskell">module NoFields where
 
-import Data.Maybe (Maybe(Just, Nothing))
+data Record = Record {a :: Int}
+
+r1 = Record {a = 5}
+
+r2 = r1 {a = 7}
 </code></pre>
     </td>
   </tr>
