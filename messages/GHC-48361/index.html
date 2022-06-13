@@ -5,7 +5,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex">
-        <title>Do notation in pattern match [GHC-6446] — Haskell Error Index</title>
+        <title>Binding type variables is not allowed in pattern bindings [GHC-48361] — Haskell Error Index</title>
         <link rel="stylesheet" href="../../css/default.css" />
         <link rel="stylesheet" href="../../css/highlight.css">
         <script src="../../js/highlight.min.js"></script>
@@ -29,21 +29,57 @@
               
                 <a href="../../messages/index.html">Messages</a>&nbsp;»
               
-              Do notation in pattern match [GHC-6446]
+              Binding type variables is not allowed in pattern bindings [GHC-48361]
             </nav>
-            <h1>Do notation in pattern match [GHC-6446]</h1>
+            <h1>Binding type variables is not allowed in pattern bindings [GHC-48361]</h1>
             
 
 
-<p>When pattern matching, <code>do</code> blocks are not allowed as expressions to be pattern matched against.</p>
-<p>Instead, either match on a variable within the <code>do</code> block, or on the value the <code>do</code> block itself evaluates to.</p>
+<p>Patterns can bind constructor arguments to variables, but they are not able to bind type arguments to type variables.</p>
 
 <h2>Examples</h2>
-<ul>
 
-<li><a href="../../messages/GHC-6446/example1/index.html">Do notation in pattern match</a></li>
+<details>
+  <summary>Binding type variables is not allowed in pattern bindings</summary>
+  <div class="example-container">
+    <h2 id="error-message">Error Message</h2>
+<pre><code>Error.hs:4:1: error: [GHC-48361]
+    • Binding type variables is not allowed in pattern bindings
+    • In the pattern: Just @a x
+      In a pattern binding: Just @a x = Just (5 :: Integer)
+  |
+4 | Just @a x = Just (5 :: Integer)
+  | ^^^^^^^^^</code></pre>
 
-</ul>
+<table width="100%">
+  
+  <tr><td colspan="2" class="filename"><pre>Error.hs</pre></td></tr>
+  <tr>
+    <td width="50%" class="beforeafter">Before</td>
+    <td width="50%" class="beforeafter">After</td>
+  </tr>
+  <tr>
+    <td>
+      <pre><code class="language-haskell">module Main where
+
+x :: Integer
+Just @a x = Just (5 :: Integer)
+</code></pre>
+    </td>
+    <td>
+      <pre><code class="language-haskell">module Main where
+
+x :: Integer
+Just x = Just (5 :: Integer)
+</code></pre>
+    </td>
+  </tr>
+  
+</table>
+
+  </div>
+</details>
+
 
         </main>
 

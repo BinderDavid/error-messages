@@ -39,13 +39,91 @@
 <p>For this to make sense, <code>deriving</code> needs to be provided with valid type class instances. Just as it doesn’t make sense to treat a number as a function, it doesn’t make sense to treat ordinary types as instances.</p>
 
 <h2>Examples</h2>
-<ul>
 
-<li><a href="../../messages/GHC-11913/deriving-int/index.html">Deriving Int</a></li>
+<details>
+  <summary>Deriving Int</summary>
+  <div class="example-container">
+    <h2 id="error-message">Error Message</h2>
+<pre><code>DerivingInt.hs:4:12: error: [GHC-11913]
+    • Illegal deriving item ‘Int’
+    • In the data declaration for ‘Example’
+  |
+4 |   deriving Int
+  |            ^^^</code></pre>
+<h2 id="explanation">Explanation</h2>
+<p>In this example, the programmer attempts to deriving <code>Int</code>, which is not a type class.</p>
 
-<li><a href="../../messages/GHC-11913/lower-case/index.html">Lowercase type class name</a></li>
+<table width="100%">
+  
+  <tr><td colspan="2" class="filename"><pre>DerivingInt.hs</pre></td></tr>
+  <tr>
+    <td width="50%" class="beforeafter">Before</td>
+    <td width="50%" class="beforeafter">After</td>
+  </tr>
+  <tr>
+    <td>
+      <pre><code class="language-haskell">module DerivingInt where
 
-</ul>
+data Example = Example
+  deriving Int
+</code></pre>
+    </td>
+    <td>
+      <pre><code class="language-haskell">module DerivingInt where
+
+data Example = Example
+  deriving Eq
+</code></pre>
+    </td>
+  </tr>
+  
+</table>
+
+  </div>
+</details>
+
+<details>
+  <summary>Lowercase type class name</summary>
+  <div class="example-container">
+    <h2 id="error-message">Error message</h2>
+<pre><code>LowerCase.hs:4:13: error: [GHC-11913]
+    • Illegal deriving item ‘show’
+    • In the data declaration for ‘Example’
+  |
+4 |   deriving (show)
+  |             ^^^^</code></pre>
+<h2 id="explanation">Explanation</h2>
+<p>Type classes in Haskell begin with an uppercase letter. Writing a lowercase name results in a type variable, rather than a type class, which is not a class that can be derived. Fix the situation by capitalizing the class name.</p>
+
+<table width="100%">
+  
+  <tr><td colspan="2" class="filename"><pre>LowerCase.hs</pre></td></tr>
+  <tr>
+    <td width="50%" class="beforeafter">Before</td>
+    <td width="50%" class="beforeafter">After</td>
+  </tr>
+  <tr>
+    <td>
+      <pre><code class="language-haskell">module LowerCase where
+
+data Example = Example
+  deriving (show)
+</code></pre>
+    </td>
+    <td>
+      <pre><code class="language-haskell">module LowerCase where
+
+data Example = Example
+  deriving (Show)
+</code></pre>
+    </td>
+  </tr>
+  
+</table>
+
+  </div>
+</details>
+
 
         </main>
 

@@ -32,8 +32,15 @@
             <h1>Messages</h1>
             
 
-<table>
-    <tr><th>Nr.</th><th>Message</th><th>Summary</th><th>Introduced</th></tr>
+<table class="message-list" width="100%">
+    <tr><th>Nr.</th><th>Message</th><th>Summary</th><th>Since</th></tr>
+    
+        <tr>
+            <td>GHC-01629</td>
+            <td><a href="../messages/GHC-01629/index.html">Too many type arguments in constructor pattern</a></td>
+            <td>Too many type applications to a constructor in a pattern.</td>
+            <td>9.6.1</td>
+        </tr>
     
         <tr>
             <td>GHC-05989</td>
@@ -43,9 +50,23 @@
         </tr>
     
         <tr>
+            <td>GHC-06446</td>
+            <td><a href="../messages/GHC-06446/index.html">Do notation in pattern match</a></td>
+            <td>Do notation in pattern match</td>
+            <td>9.6.1</td>
+        </tr>
+    
+        <tr>
             <td>GHC-10190</td>
             <td><a href="../messages/GHC-10190/index.html">Empty enumeration</a></td>
             <td>An enumeration would be empty.</td>
+            <td>9.6.1</td>
+        </tr>
+    
+        <tr>
+            <td>GHC-11861</td>
+            <td><a href="../messages/GHC-11861/index.html">Empty single quotes</a></td>
+            <td>No character literal provided within single quotes</td>
             <td>9.6.1</td>
         </tr>
     
@@ -101,7 +122,28 @@
         <tr>
             <td>GHC-47854</td>
             <td><a href="../messages/GHC-47854/index.html">Duplicate Exports</a></td>
-            <td>An identifier apperas twice in an export list.</td>
+            <td>An identifier appears twice in an export list.</td>
+            <td>9.6.1</td>
+        </tr>
+    
+        <tr>
+            <td>GHC-48361</td>
+            <td><a href="../messages/GHC-48361/index.html">Binding type variables is not allowed in pattern bindings</a></td>
+            <td>You can only bind value-level variables in a pattern, not type variables.</td>
+            <td>9.6.1</td>
+        </tr>
+    
+        <tr>
+            <td>GHC-56538</td>
+            <td><a href="../messages/GHC-56538/index.html">Instance head is not headed by a class</a></td>
+            <td>A type class instance declaration is declared for something that is not a type class</td>
+            <td>9.6.1</td>
+        </tr>
+    
+        <tr>
+            <td>GHC-62016</td>
+            <td><a href="../messages/GHC-62016/index.html">Cannot derive well-kinded instance</a></td>
+            <td>An instance cannot be derived because the kinds cannot be made to match.</td>
             <td>9.6.1</td>
         </tr>
     
@@ -113,9 +155,9 @@
         </tr>
     
         <tr>
-            <td>GHC-6446</td>
-            <td><a href="../messages/GHC-6446/index.html">Do notation in pattern match</a></td>
-            <td>Do notation in pattern match</td>
+            <td>GHC-62330</td>
+            <td><a href="../messages/GHC-62330/index.html">Underscores not allowed in float and integer literals</a></td>
+            <td>Float and integer literals cannot contain underscores</td>
             <td>9.6.1</td>
         </tr>
     
@@ -134,6 +176,13 @@
         </tr>
     
         <tr>
+            <td>GHC-71614</td>
+            <td><a href="../messages/GHC-71614/index.html">Lambda requires at least one parameter</a></td>
+            <td>A lambda expression must have at least one parameter.</td>
+            <td>9.6.1</td>
+        </tr>
+    
+        <tr>
             <td>GHC-75356</td>
             <td><a href="../messages/GHC-75356/index.html">Export item suggests constructors/methods</a></td>
             <td>An export item suggests that (in-scope) constructors or class methods exist when they do not.</td>
@@ -144,6 +193,13 @@
             <td>GHC-76037</td>
             <td><a href="../messages/GHC-76037/index.html">Not in scope</a></td>
             <td>An identifier is not in scope.</td>
+            <td>9.6.1</td>
+        </tr>
+    
+        <tr>
+            <td>GHC-77037</td>
+            <td><a href="../messages/GHC-77037/index.html">No explicit import list</a></td>
+            <td>Items brought into scope are not listed explicitly</td>
             <td>9.6.1</td>
         </tr>
     

@@ -38,15 +38,136 @@
 <p>An identifier can only be used if it is in scope; i.e. if it is bound or declared previously and that binding/declaration is available at the usage location.</p>
 
 <h2>Examples</h2>
-<ul>
 
-<li><a href="../../messages/GHC-76037/example1/index.html">Unbound data constructor in lambda</a></li>
+<details>
+  <summary>Unbound data constructor in lambda</summary>
+  <div class="example-container">
+    <p>The data constructor <code>A</code> used in the lambda expression is not in scope.</p>
+<h2 id="error-message">Error Message</h2>
+<pre><code>NotInScopeLambda.hs:3:6: error: [GHC-76037]
+    Not in scope: data constructor ‘A’
+  |
+3 | f = \A -&gt; A
+  |      ^</code></pre>
 
-<li><a href="../../messages/GHC-76037/example2/index.html">Unbound class name</a></li>
+<table width="100%">
+  
+  <tr><td colspan="2" class="filename"><pre>NotInScopeLambda.hs</pre></td></tr>
+  <tr>
+    <td width="50%" class="beforeafter">Before</td>
+    <td width="50%" class="beforeafter">After</td>
+  </tr>
+  <tr>
+    <td>
+      <pre><code class="language-haskell">module NotInScopeLambda where
 
-<li><a href="../../messages/GHC-76037/example3/index.html">Data constructor not imported</a></li>
+f = \A -> A
+</code></pre>
+    </td>
+    <td>
+      <pre><code class="language-haskell">module NotInScopeLambda where
 
-</ul>
+data Foo = A | B
+
+f :: Foo -> Foo
+f = \A -> A
+</code></pre>
+    </td>
+  </tr>
+  
+</table>
+
+  </div>
+</details>
+
+<details>
+  <summary>Unbound class name</summary>
+  <div class="example-container">
+    <p>The class name <code>B</code> referenced in the definition of class <code>C</code> is not in scope.</p>
+<h2 id="error-message">Error Message</h2>
+<pre><code>NotInScopeClass.hs:3:8: error: [GHC-76037]
+    Not in scope: type constructor or class ‘B’
+  |
+3 | class (B a) =&gt; C a where
+  |        ^</code></pre>
+
+<table width="100%">
+  
+  <tr><td colspan="2" class="filename"><pre>NotInScopeClass.hs</pre></td></tr>
+  <tr>
+    <td width="50%" class="beforeafter">Before</td>
+    <td width="50%" class="beforeafter">After</td>
+  </tr>
+  <tr>
+    <td>
+      <pre><code class="language-haskell">module NotInScopeClass where
+
+class (B a) => C a where
+ op1 :: a -> Int
+</code></pre>
+    </td>
+    <td>
+      <pre><code class="language-haskell">module NotInScopeClass where
+
+class B a where
+  op :: a -> a
+
+class (B a) => C a where
+ op1 :: a -> Int
+</code></pre>
+    </td>
+  </tr>
+  
+</table>
+
+  </div>
+</details>
+
+<details>
+  <summary>Data constructor not imported</summary>
+  <div class="example-container">
+    <p>The import statement <code>import Foo (Bar)</code> imports the <code>Bar</code> data type, but no its constructor <code>MkBar</code>.
+As such, the constructor is not in scope.</p>
+<h2 id="error-message">Error Message</h2>
+<pre><code>IncorrectImport.hs:6:12: error: [GHC-76037]
+    Not in scope: data constructor ‘MkBar’
+  |
+6 | barAddOne (MkBar n) = MkBar (n + 1)
+  |            ^^^^^</code></pre>
+
+<table width="100%">
+  
+  <tr><td colspan="2" class="filename"><pre>IncorrectImport.hs</pre></td></tr>
+  <tr>
+    <td width="50%" class="beforeafter">Before</td>
+    <td width="50%" class="beforeafter">After</td>
+  </tr>
+  <tr>
+    <td>
+      <pre><code class="language-haskell">module IncorrectImport where
+
+import Foo (Bar)
+
+barAddOne :: Bar -> Bar
+barAddOne (MkBar n) = MkBar (n + 1)
+</code></pre>
+    </td>
+    <td>
+      <pre><code class="language-haskell">module IncorrectImport where
+
+import Foo (Bar(..))
+
+barAddOne :: Bar -> Bar
+barAddOne (MkBar n) = MkBar (n + 1)
+</code></pre>
+    </td>
+  </tr>
+  
+</table>
+
+  </div>
+</details>
+
 
         </main>
 

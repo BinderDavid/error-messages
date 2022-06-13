@@ -35,16 +35,111 @@
             
 
 
-<p>Within a record expression <code>{ selector1 = ..., ..., selectorN = ... }</code>, the selectors must be bound by a single record declaration.</p>
+<p>Within a record update expression <code>r { selector1 = ..., ..., selectorN = ... }</code>, the selectors <code>selector1</code> … <code>selectorN</code> must be bound by a record constructor declaration.</p>
 
 <h2>Examples</h2>
-<ul>
 
-<li><a href="../../messages/GHC-47535/example1/index.html">Identifier is not a record selector</a></li>
+<details>
+  <summary>Identifier is a top-level binding, not a record selector</summary>
+  <div class="example-container">
+    <p>The identifier <code>foo</code> is used as a record selector, but is never declared as such.
+Using <code>bar</code> fixes the error, since it is declared as a selector of the <code>Bar</code> record.</p>
+<h2 id="error-message">Error Message</h2>
+<pre><code>NotARecordSelector.hs:6:13: error: [GHC-47535]
+    • ‘foo’ is not a record selector
+    • In the expression: x {foo = 1}
+      In an equation for ‘foo’: foo x = x {foo = 1}
+  |
+6 | foo x = x { foo = 1 }
+  |             ^^^</code></pre>
 
-<li><a href="../../messages/GHC-47535/example2/index.html">Identifier is not a record selector</a></li>
+<table width="100%">
+  
+  <tr><td colspan="2" class="filename"><pre>NotARecordSelector.hs</pre></td></tr>
+  <tr>
+    <td width="50%" class="beforeafter">Before</td>
+    <td width="50%" class="beforeafter">After</td>
+  </tr>
+  <tr>
+    <td>
+      <pre><code class="language-haskell">module NotARecordSelector where
 
-</ul>
+newtype Bar = Bar { bar :: Int }
+
+foo :: Bar -> Bar
+foo x = x { foo = 1 }
+</code></pre>
+    </td>
+    <td>
+      <pre><code class="language-haskell">module NotARecordSelector where
+
+newtype Bar = Bar { bar :: Int }
+
+foo :: Bar -> Bar
+foo x = x { bar = 1 }
+</code></pre>
+    </td>
+  </tr>
+  
+</table>
+
+  </div>
+</details>
+
+<details>
+  <summary>Identifier is a class method, not a record selector</summary>
+  <div class="example-container">
+    <p>The identifier <code>foo</code> is used as a record selector, but it refers to a function of the <code>Foo</code> class instead.
+Using <code>bar</code> fixes the error, since it is a selector of the <code>Bar</code> record.
+This error can only occur when the type of the record is ambiguous, in the example below this is achieved by the use of <code>undefined</code>.</p>
+<h2 id="error-message">Error Message</h2>
+<pre><code>NotARecordSelector.hs:9:20: error: [GHC-47535]
+    • ‘foo’ is not a record selector
+    • In the expression: undefined {foo = ()}
+      In an equation for ‘test’: test = undefined {foo = ()}
+  |
+9 | test = undefined { foo = () }
+  |                    ^^^</code></pre>
+
+<table width="100%">
+  
+  <tr><td colspan="2" class="filename"><pre>NotARecordSelector.hs</pre></td></tr>
+  <tr>
+    <td width="50%" class="beforeafter">Before</td>
+    <td width="50%" class="beforeafter">After</td>
+  </tr>
+  <tr>
+    <td>
+      <pre><code class="language-haskell">module NotARecordSelector where
+
+class Foo a where
+  foo :: a -> ()
+
+data Bar = Bar { bar :: () }
+
+test :: Bar
+test = undefined { foo = () }
+</code></pre>
+    </td>
+    <td>
+      <pre><code class="language-haskell">module NotARecordSelector where
+
+class Foo a where
+  foo :: a -> ()
+
+data Bar = Bar { bar :: () }
+
+test :: Bar
+test = undefined { bar = () }
+</code></pre>
+    </td>
+  </tr>
+  
+</table>
+
+  </div>
+</details>
+
 
         </main>
 

@@ -5,38 +5,47 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noindex">
-        <title>Do notation in pattern match — Haskell Error Index</title>
-        <link rel="stylesheet" href="../../../css/default.css" />
-        <link rel="stylesheet" href="../../../css/highlight.css">
-        <script src="../../../js/highlight.min.js"></script>
+        <title>Do notation in pattern match [GHC-06446] — Haskell Error Index</title>
+        <link rel="stylesheet" href="../../css/default.css" />
+        <link rel="stylesheet" href="../../css/highlight.css">
+        <script src="../../js/highlight.min.js"></script>
     </head>
     <body>
         <header>
             <div class="logo">
-                <a href="../../../">The Haskell Error Index</a>
+                <a href="../../">The Haskell Error Index</a>
             </div>
             <nav>
-                <a href="../../../">Home</a>
-                <a href="../../../messages/">Messages</a>
-                <a href="../../../contact.html">Contact</a>
+                <a href="../../">Home</a>
+                <a href="../../messages/">Messages</a>
+                <a href="../../contact.html">Contact</a>
             </nav>
         </header>
 
         <main role="main">
             <nav id="breadcrumb">
               
-                <a href="../../../index.html">Home</a>&nbsp;»
+                <a href="../../index.html">Home</a>&nbsp;»
               
-                <a href="../../../messages/index.html">Messages</a>&nbsp;»
+                <a href="../../messages/index.html">Messages</a>&nbsp;»
               
-                <a href="../../../messages/GHC-6446/index.html">Do notation in pattern match [GHC-6446]</a>&nbsp;»
-              
-              Do notation in pattern match
+              Do notation in pattern match [GHC-06446]
             </nav>
-            <h1>Do notation in pattern match</h1>
-            <p>When pattern matching, <code>do</code> expressions are not allowed as patterns to be matched against.</p>
+            <h1>Do notation in pattern match [GHC-06446]</h1>
+            
+
+
+<p>When pattern matching, <code>do</code> blocks are not allowed as expressions to be pattern matched against.</p>
+<p>Instead, either match on a variable within the <code>do</code> block, or on the value the <code>do</code> block itself evaluates to.</p>
+
+<h2>Examples</h2>
+
+<details>
+  <summary>Do notation in pattern match</summary>
+  <div class="example-container">
+    <p>When pattern matching, <code>do</code> expressions are not allowed as patterns to be matched against.</p>
 <h2 id="error-message">Error Message</h2>
-<pre><code>DoNotationInPattern.hs:4:4: error: [GHC-6446]
+<pre><code>DoNotationInPattern.hs:4:4: error: [GHC-06446]
     do-notation in pattern
   |
 4 | f (do a; b; c;) = do
@@ -70,6 +79,10 @@ f m = do
   </tr>
   
 </table>
+
+  </div>
+</details>
+
 
         </main>
 

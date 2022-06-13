@@ -45,11 +45,58 @@
 <p>If no space is placed between <code>!</code> and the expression that follows it, this is interpreted as the last bullet; in expression contexts, the bang pattern is not allowed. The most likely case is that you wish to use <code>!</code> as a binary operator, in which case a space is needed following it.</p>
 
 <h2>Examples</h2>
-<ul>
 
-<li><a href="../../messages/GHC-95644/example1/index.html">Missing space after exclamation `!`</a></li>
+<details>
+  <summary>Missing space after exclamation `!`</summary>
+  <div class="example-container">
+    <p>There is no space after the exclamation mark character <code>!</code>.</p>
+<h2 id="error-message">Error Message</h2>
+<pre><code>MissingSpaceBangPattern.hs:9:9: error: [GHC-95644]
+    Bang pattern in expression context: !1
+    Did you mean to add a space after the '!'?
+  |
+9 | f x = x !1
+  |</code></pre>
 
-</ul>
+<table width="100%">
+  
+  <tr><td colspan="2" class="filename"><pre>MissingSpaceBangPattern.hs</pre></td></tr>
+  <tr>
+    <td width="50%" class="beforeafter">Before</td>
+    <td width="50%" class="beforeafter">After</td>
+  </tr>
+  <tr>
+    <td>
+      <pre><code class="language-haskell">module MissingSpaceBangPattern where
+
+(!) :: Int -> Int -> Bool
+(!) a b = a == b
+
+infixl 5 !
+
+f :: Int -> Bool
+f x = x !1
+</code></pre>
+    </td>
+    <td>
+      <pre><code class="language-haskell">module MissingSpaceBangPattern where
+
+(!) :: Int -> Int -> Bool
+(!) a b = a == b
+
+infixl 5 !
+
+f :: Int -> Bool
+f x = x ! 1
+</code></pre>
+    </td>
+  </tr>
+  
+</table>
+
+  </div>
+</details>
+
 
         </main>
 
